@@ -1,0 +1,87 @@
+def prod_non_zero_diag(x):
+    sum = 1
+    for i in range(0, len(x)):
+        for j in range(0, len(x[i])):
+            if (i == j):
+                if (x[i][j] != 0):
+                    sum *= x[i][j]
+    return sum
+
+
+def are_multisets_equal(x, y):
+    x.tolist()
+    y.tolist()
+    x.sort()
+    y.sort()
+
+    if (len(x) != len(y)):
+        return False
+    else:
+        for i in range(len(x)):
+            if (x[i] != y[i]):
+                return False
+
+    return True
+
+
+def max_after_zero(x):
+    a = []
+    for i in range(0, len(x) - 1):
+        if (x[i] == 0):
+            a.append(x[i + 1])
+
+    return max(a)
+
+
+def convert_image(img, coefs):
+    result = []
+    for i in range(img.shape[0]):
+        result.append([0.0] * img.shape[1])
+        for j in range(img.shape[1]):
+            elem = 0.0
+            for k in range(img.shape[2]):
+                elem += img[i][j][k] * coefs[k]
+            result[i][j] = elem
+    return result
+
+
+def run_length_encoding(x):
+    a = []
+    b = []
+    tmp = x[0]
+    cnt = 1
+    for i in range(1, len(x)):
+        if (i != len(x) - 1):
+            if (x[i] == tmp):
+                cnt += 1
+            else:
+                a.append(tmp)
+                b.append(cnt)
+                cnt = 1
+                tmp = x[i]
+        else:
+            if (x[i] == tmp):
+                cnt += 1
+                a.append(tmp)
+                b.append(cnt)
+            else:
+                a.append(tmp)
+                b.append(cnt)
+                a.append(x[i])
+                b.append(1)
+    return (a, b)
+
+
+def pairwise_distance(x, y):
+    from math import sqrt
+    D = []
+    for i in range(len(x)):
+        D.append([0.0] * len(y))
+        for j in range(len(y)):
+            sum = 0.0
+            for k in range(len(x[0])):
+                sum += (x[i][k] - y[j][k]) ** 2
+            sum = sqrt(sum)
+            D[i][j] = sum
+
+    return D
